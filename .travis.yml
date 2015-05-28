@@ -12,7 +12,7 @@ matrix:
 before_script:
  - mkdir -p build/logs
  - curl -s https://getcomposer.org/installer | php
- - php composer.phar install --dev
+ - php composer.phar install
 
 script:
  - php vendor/bin/phpunit -c . --coverage-clover build/logs/clover.xml

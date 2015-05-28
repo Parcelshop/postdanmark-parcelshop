@@ -1,7 +1,7 @@
 Postdanmark parcelshop (for Denmark)
 ============================
 
-[![Build Status](https://travis-ci.org/lsv/postdanmark-parcelshop-api.svg)](https://travis-ci.org/lsv/postdanmark-parcelshop) [![Coverage Status](https://coveralls.io/repos/lsv/postdanmark-parcelshop/badge.svg?branch=master)](https://coveralls.io/r/lsv/postdanmark-parcelshop?branch=master)
+[![Build Status](https://travis-ci.org/lsv/postdanmark-parcelshop.svg?branch=master)](https://travis-ci.org/lsv/postdanmark-parcelshop) [![Coverage Status](https://coveralls.io/repos/lsv/postdanmark-parcelshop/badge.svg)](https://coveralls.io/r/lsv/postdanmark-parcelshop)
 
 Get parcelshops from either
 
