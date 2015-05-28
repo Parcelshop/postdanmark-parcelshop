@@ -1,0 +1,69 @@
+<project name="lsv/pddk" default="build" basedir=".">
+    <property name="bindir" value="${project.basedir}/vendor/bin" />
+    <property name="builddir" value="${project.basedir}/build" />
+    <property name="sourcedir" value="${project.basedir}/src" />
+
+    <target name="build"
+            depends="build:clean,build:fixer,build:phpcs,build:phploc,build:phpmd,build:phpcpd,build:phpdoc,build:phpunit"
+            description="Check code" />
+
+    <target name="build:clean" description="Deletes and recreates the 'build'">
+        <!-- Clean up -->
+        <delete dir="${builddir}" quiet="true" />
+
+        <!-- Create build directories -->
+        <mkdir dir="${builddir}/api"/>
+        <mkdir dir="${builddir}/code-browser"/>
+        <mkdir dir="${builddir}/coverage"/>
+        <mkdir dir="${builddir}/logs"/>
+        <mkdir dir="${builddir}/pdepend"/>
+    </target>
+
+    <target name="build:fixer" description="Fixing code standards">
+        <exec executable="${bindir}/php-cs-fixer" passthru="false">
+            <arg line="fix" />
+            <arg file="${sourcedir}" />
+            <arg line="--level=psr2" />
+        </exec>
+    </target>
+
+    <!-- Generate checkstyle.xml -->
+    <target name="build:phpcs" description="Checks for Coding Standard violations">
+        <exec command="${bindir}/phpcs --standard=PSR2 --report=checkstyle --report-file=${builddir}/logs/checkstyle.xml ${sourcedir}" passthru="true" checkreturn="false"/>
+    </target>
+
+    <!-- Generate API documentation with phpDocumentor -->
+    <target name="build:phpdoc" description="Generates API documentation">
+        <exec executable="${bindir}/phpdoc" passthru="false">
+            <arg line="-d ${sourcedir}"/>
+            <arg line="-t ${builddir}/api"/>
+            <arg line="--template responsive-twig" />
+        </exec>
+    </target>
+
+    <!-- Generate phploc.csv -->
+    <target name="build:phploc" description="Generates LOC statistics">
+        <exec executable="${bindir}/phploc" passthru="false">
+            <arg line="--log-xml ${builddir}/logs/phploc.xml" />
+            <arg path="${sourcedir}" />
+        </exec>
+    </target>
+
+    <!-- Generate pmd-cpd.xml -->
+    <target name="build:phpcpd" description="Search for duplicated code">
+        <exec command="${bindir}/phpcpd ${sourcedir} --log-pmd=${builddir}/logs/pmd-cpd.xml" passthru="false" />
+    </target>
+
+    <!-- Generate pmd.xml -->
+    <target name="build:phpmd" description="Analyze the source code for suboptimal solutions">
+        <phpmd file="${sourcedir}" rulesets="codesize,design,naming,unusedcode">
+            <formatter type="xml" outfile="${builddir}/logs/pmd.xml"/>
+        </phpmd>
+    </target>
+
+    <!-- Generate phpunit results and code coverage -->
+    <target name="build:phpunit" description="Unit test">
+        <exec command="${bindir}/phpunit -c ${project.basedir} --coverage-html ${builddir}/coverage --log-json ${builddir}/logs/phpunit.json" checkreturn="true" />
+    </target>
+
+</project>

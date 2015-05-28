@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor>
+    <parser>
+        <default-package-name>lsv/pddk</default-package-name>
+        <target>/docs</target>
+        <files>
+            <directory>src/</directory>
+        </files>
+    </parser>
+    <transformations>
+        <template name="clean" />
+    </transformations>
+    <logging>
+        <level>warn</level>
+        <paths>
+            <default>./build/logs/phpdocumentor.log</default>
+            <errors>./build/logs/phpdocumentor.errors.log</errors>
+        </paths>
+    </logging>
+</phpdocumentor>
