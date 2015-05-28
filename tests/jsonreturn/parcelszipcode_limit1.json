@@ -1,0 +1,58 @@
+{
+  "servicePointInformationResponse" : {
+    "customerSupportPhoneNo" : "+4570111230",
+    "servicePoints" : [ {
+      "servicePointId" : "376",
+      "name" : "Pakkeboks 376 Fakta",
+      "routeDistance" : 3138,
+      "visitingAddress" : {
+        "streetName" : "Jyllandsgade",
+        "streetNumber" : "11",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "deliveryAddress" : {
+        "streetName" : "Jyllandsgade",
+        "streetNumber" : "11",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "coordinate" : {
+        "srId" : "EPSG:4326",
+        "northing" : 55.442315,
+        "easting" : 11.787644
+      },
+      "openingHours" : [ {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "MO"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "TU"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "WE"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "TH"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "FR"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "SA"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "SU"
+      } ]
+    } ]
+  }
+}

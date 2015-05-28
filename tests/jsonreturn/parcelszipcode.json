@@ -1,0 +1,266 @@
+{
+  "servicePointInformationResponse" : {
+    "customerSupportPhoneNo" : "+4570111230",
+    "servicePoints" : [ {
+      "servicePointId" : "376",
+      "name" : "Pakkeboks 376 Fakta",
+      "routeDistance" : 3138,
+      "visitingAddress" : {
+        "streetName" : "Jyllandsgade",
+        "streetNumber" : "11",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "deliveryAddress" : {
+        "streetName" : "Jyllandsgade",
+        "streetNumber" : "11",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "coordinate" : {
+        "srId" : "EPSG:4326",
+        "northing" : 55.442315,
+        "easting" : 11.787644
+      },
+      "openingHours" : [ {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "MO"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "TU"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "WE"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "TH"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "FR"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "SA"
+      }, {
+        "from1" : "0800",
+        "to1" : "2200",
+        "day" : "SU"
+      } ]
+    }, {
+      "servicePointId" : "4103",
+      "name" : "Pakkeboks 4103 Ringsted Station",
+      "routeDistance" : 3360,
+      "visitingAddress" : {
+        "streetName" : "Jernbanevej",
+        "streetNumber" : "1",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "deliveryAddress" : {
+        "streetName" : "Jernbanevej",
+        "streetNumber" : "1",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "coordinate" : {
+        "srId" : "EPSG:4326",
+        "northing" : 55.438316,
+        "easting" : 11.786569
+      },
+      "openingHours" : [ {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "MO"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "TU"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "WE"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "TH"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "FR"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "SA"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "SU"
+      } ]
+    }, {
+      "servicePointId" : "4103",
+      "name" : "Pakkeboks 4103 Ringsted Station Handikapvenlig",
+      "routeDistance" : 3360,
+      "visitingAddress" : {
+        "streetName" : "Jernbanevej",
+        "streetNumber" : "1",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "deliveryAddress" : {
+        "streetName" : "Jernbanevej",
+        "streetNumber" : "1",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "coordinate" : {
+        "srId" : "EPSG:4326",
+        "northing" : 55.438316,
+        "easting" : 11.786569
+      },
+      "openingHours" : [ {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "MO"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "TU"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "WE"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "TH"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "FR"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "SA"
+      }, {
+        "from1" : "0000",
+        "to1" : "2359",
+        "day" : "SU"
+      } ]
+    }, {
+      "servicePointId" : "4101",
+      "name" : "Posthus Føtex",
+      "routeDistance" : 3738,
+      "visitingAddress" : {
+        "streetName" : "Klosterparks Alle",
+        "streetNumber" : "10",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "deliveryAddress" : {
+        "streetName" : "Klosterparks Alle",
+        "streetNumber" : "10",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "coordinate" : {
+        "srId" : "EPSG:4326",
+        "northing" : 55.453519,
+        "easting" : 11.788028
+      },
+      "openingHours" : [ {
+        "from1" : "0800",
+        "to1" : "2100",
+        "day" : "MO"
+      }, {
+        "from1" : "0800",
+        "to1" : "2100",
+        "day" : "TU"
+      }, {
+        "from1" : "0800",
+        "to1" : "2100",
+        "day" : "WE"
+      }, {
+        "from1" : "0800",
+        "to1" : "2100",
+        "day" : "TH"
+      }, {
+        "from1" : "0800",
+        "to1" : "2100",
+        "day" : "FR"
+      }, {
+        "from1" : "0800",
+        "to1" : "2100",
+        "day" : "SA"
+      }, {
+        "from1" : "0800",
+        "to1" : "2100",
+        "day" : "SU"
+      } ]
+    }, {
+      "servicePointId" : "3839",
+      "name" : "Pakkeboks 3839 Kvickly",
+      "routeDistance" : 3863,
+      "visitingAddress" : {
+        "streetName" : "Nørretorv",
+        "streetNumber" : "26",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "deliveryAddress" : {
+        "streetName" : "Nørretorv",
+        "streetNumber" : "26",
+        "postalCode" : "4100",
+        "city" : "RINGSTED",
+        "countryCode" : "DK"
+      },
+      "coordinate" : {
+        "srId" : "EPSG:4326",
+        "northing" : 55.450483,
+        "easting" : 11.787834
+      },
+      "openingHours" : [ {
+        "from1" : "0800",
+        "to1" : "2000",
+        "day" : "MO"
+      }, {
+        "from1" : "0800",
+        "to1" : "2000",
+        "day" : "TU"
+      }, {
+        "from1" : "0800",
+        "to1" : "2000",
+        "day" : "WE"
+      }, {
+        "from1" : "0800",
+        "to1" : "2000",
+        "day" : "TH"
+      }, {
+        "from1" : "0800",
+        "to1" : "2000",
+        "day" : "FR"
+      }, {
+        "from1" : "0800",
+        "to1" : "1800",
+        "day" : "SA"
+      }, {
+        "from1" : "0800",
+        "to1" : "1800",
+        "day" : "SU"
+      } ]
+    } ]
+  }
+}
