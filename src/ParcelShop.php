@@ -25,7 +25,7 @@ class ParcelShop
      *
      * @var string
      */
-    const WEBSERVICE = 'http://api.postnord.com/wsp/rest/BusinessLocationLocator/Logistics/ServicePointService_1.0';
+    const WEBSERVICE = 'https://api2.postnord.com/rest/businesslocation/v1/servicepoint';
 
     /**
      * HTTP URL
@@ -185,7 +185,7 @@ class ParcelShop
      */
     private function generateUrl($url, array $params)
     {
-        $params['consumerId'] = $this->consumerId;
+        $params['apikey'] = $this->consumerId;
         $params['countryCode'] = $this->country;
         $query = http_build_query($params);
         return sprintf(
