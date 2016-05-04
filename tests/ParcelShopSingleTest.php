@@ -8,7 +8,7 @@ use GuzzleHttp\Subscriber\Mock;
 class ParcelShopSingleTest extends AbstractParcelShopTest
 {
 
-    public function test_one_parcel_not_found()
+    public function testOneParcelNotFound()
     {
         $this->setExpectedException($this->getExceptionNamespace('ParcelNotFoundException'), '', 210);
 
@@ -19,7 +19,7 @@ class ParcelShopSingleTest extends AbstractParcelShopTest
         $this->getParser($mock)->getParcelshop(1000, 'unknown');
     }
 
-    public function test_one_parcel_found()
+    public function testOneParcelFound()
     {
         $mock = new Mock([
             new Response(200, [], Stream::factory($this->getReturnJson('parcelszipcode.json')))
@@ -40,7 +40,7 @@ class ParcelShopSingleTest extends AbstractParcelShopTest
         $this->assertEquals('55.442315,11.787644', $parcel->getCoordinate());
         $this->assertCount(7, $parcel->getOpenings());
 
-        foreach($parcel->getOpenings() as $opening) {
+        foreach ($parcel->getOpenings() as $opening) {
             $this->assertTrue(in_array($opening->getDay(), ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']));
             $this->assertEquals('08:00', $opening->getOpenFrom());
             $this->assertEquals('22:00', $opening->getOpenTo());
@@ -48,7 +48,7 @@ class ParcelShopSingleTest extends AbstractParcelShopTest
 
     }
 
-    public function test_find_one_parcel_parcels_found_but_not_correct()
+    public function testFindOneParcelParcelsFoundButNotCorrect()
     {
         $this->setExpectedException($this->getExceptionNamespace('ParcelNotFoundException'), '', 210);
 
@@ -58,5 +58,4 @@ class ParcelShopSingleTest extends AbstractParcelShopTest
 
         $this->getParser($mock)->getParcelshop(1000, 999);
     }
-
 }

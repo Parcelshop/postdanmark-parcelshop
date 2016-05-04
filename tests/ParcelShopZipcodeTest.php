@@ -8,7 +8,7 @@ use GuzzleHttp\Subscriber\Mock;
 class ParcelShopZipcodeTest extends AbstractParcelShopTest
 {
 
-    public function test_get_parcels_from_zipcode_zipcode_not_found()
+    public function testGetParcelsFromZipcodeZipcodeNotFound()
     {
         $this->setExpectedException($this->getExceptionNamespace('NoParcelsFoundInZipcodeException'), '', 220);
         $mock = new Mock([
@@ -17,7 +17,7 @@ class ParcelShopZipcodeTest extends AbstractParcelShopTest
         $this->getParser($mock)->getParcelshopsFromZipcode(1000);
     }
 
-    public function test_get_parcels_from_zipcode()
+    public function testGetParcelsFromZipcode()
     {
         $mock = new Mock([
             new Response(200, [], Stream::factory($this->getReturnJson('parcelszipcode.json')))
@@ -25,13 +25,13 @@ class ParcelShopZipcodeTest extends AbstractParcelShopTest
 
         $parcels = $this->getParser($mock)->getParcelshopsFromZipcode(1000);
         $this->assertCount(5, $parcels);
-        foreach($parcels as $parcel) {
+        foreach ($parcels as $parcel) {
             $this->assertInstanceOf('Lsv\PdDk\Entity\Parcelshop', $parcel);
         }
 
     }
 
-    public function test_set_limit()
+    public function testSetLimit()
     {
         $mock = new Mock([
             new Response(200, [], Stream::factory($this->getReturnJson('parcelszipcode_limit1.json')))
@@ -39,9 +39,8 @@ class ParcelShopZipcodeTest extends AbstractParcelShopTest
 
         $parcels = $this->getParser($mock)->getParcelshopsFromZipcode(1000, 1);
         $this->assertCount(1, $parcels);
-        foreach($parcels as $parcel) {
+        foreach ($parcels as $parcel) {
             $this->assertInstanceOf('Lsv\PdDk\Entity\Parcelshop', $parcel);
         }
     }
-
 }
