@@ -8,7 +8,7 @@ use GuzzleHttp\Subscriber\Mock;
 class ParcelShopAddressTest extends AbstractParcelShopTest
 {
 
-    public function test_get_nearst_parcel_wrong_address()
+    public function testGetNearstParcelWrongAddress()
     {
         $this->setExpectedException($this->getExceptionNamespace('MalformedAddressException'), '', 230);
 
@@ -19,7 +19,7 @@ class ParcelShopAddressTest extends AbstractParcelShopTest
         $this->getParser($mock)->getParcelshopsNearAddress('unknown address', 10000);
     }
 
-    public function test_get_nearst_parcel()
+    public function testGetNearstParcel()
     {
         $mock = new Mock([
             new Response(200, [], Stream::factory($this->getReturnJson('parcelszipcode.json')))
@@ -27,9 +27,8 @@ class ParcelShopAddressTest extends AbstractParcelShopTest
 
         $parcels = $this->getParser($mock)->getParcelshopsNearAddress('correct address', 1000);
         $this->assertCount(5, $parcels);
-        foreach($parcels as $parcel) {
+        foreach ($parcels as $parcel) {
             $this->assertInstanceOf('Lsv\PdDk\Entity\Parcelshop', $parcel);
         }
     }
-
 }
