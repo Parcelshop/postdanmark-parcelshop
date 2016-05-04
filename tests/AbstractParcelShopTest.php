@@ -37,5 +37,4 @@ abstract class AbstractParcelShopTest extends \PHPUnit_Framework_TestCase
     {
         return sprintf('Lsv\PdDk\Exceptions\%s', $exception);
     }
-
 }
