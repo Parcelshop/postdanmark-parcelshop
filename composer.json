@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "guzzlehttp/guzzle": "~5.0",
+    "guzzlehttp/guzzle": "^5.0|^6.0",
     "doctrine/collections": "~1.0"
   },
   "autoload": {
