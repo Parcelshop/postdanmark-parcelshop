@@ -1,18 +1,19 @@
 <?php
 namespace Lsv\PdDkTest;
 
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
+use Lsv\PdDk\Entity\Parcelshop;
 
 class ParcelShopSingleTest extends AbstractParcelShopTest
 {
 
     public function testOneParcelNotFound()
     {
-        $this->setExpectedException($this->getExceptionNamespace('ParcelNotFoundException'), '', 210);
+        $this->expectException($this->getExceptionNamespace('ParcelNotFoundException'));
+        $this->expectExceptionCode(210);
 
-        $mock = new Mock([
+        $mock = new MockHandler([
             new Response(400)
         ]);
 
@@ -21,13 +22,13 @@ class ParcelShopSingleTest extends AbstractParcelShopTest
 
     public function testOneParcelFound()
     {
-        $mock = new Mock([
-            new Response(200, [], Stream::factory($this->getReturnJson('parcelszipcode.json')))
+        $mock = new MockHandler([
+            new Response(200, [], $this->getReturnJson('parcelszipcode.json'))
         ]);
 
         $parcel = $this->getParser($mock)->getParcelshop(1000, 376);
 
-        $this->assertInstanceOf('Lsv\PdDk\Entity\Parcelshop', $parcel);
+        $this->assertInstanceOf(Parcelshop::class, $parcel);
         $this->assertEquals('376', $parcel->getNumber());
         $this->assertEquals('Pakkeboks 376 Fakta', $parcel->getCompanyname());
         $this->assertEquals('RINGSTED', $parcel->getCity());
@@ -41,7 +42,7 @@ class ParcelShopSingleTest extends AbstractParcelShopTest
         $this->assertCount(7, $parcel->getOpenings());
 
         foreach ($parcel->getOpenings() as $opening) {
-            $this->assertTrue(in_array($opening->getDay(), ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']));
+            $this->assertTrue(in_array($opening->getDay(), ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], true));
             $this->assertEquals('08:00', $opening->getOpenFrom());
             $this->assertEquals('22:00', $opening->getOpenTo());
         }
@@ -50,10 +51,11 @@ class ParcelShopSingleTest extends AbstractParcelShopTest
 
     public function testFindOneParcelParcelsFoundButNotCorrect()
     {
-        $this->setExpectedException($this->getExceptionNamespace('ParcelNotFoundException'), '', 210);
+        $this->expectException($this->getExceptionNamespace('ParcelNotFoundException'));
+        $this->expectExceptionCode(210);
 
-        $mock = new Mock([
-            new Response(200, [], Stream::factory($this->getReturnJson('parcelszipcode.json')))
+        $mock = new MockHandler([
+            new Response(200, [], $this->getReturnJson('parcelszipcode.json'))
         ]);
 
         $this->getParser($mock)->getParcelshop(1000, 999);

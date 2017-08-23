@@ -4,7 +4,6 @@
  */
 namespace Lsv\PdDk;
 
-use Guzzle\Service\Exception\ServiceNotFoundException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Lsv\PdDk\Entity;
@@ -67,7 +66,7 @@ class ParcelShop
     {
         $this->consumerId = $consumerId;
         $this->country = $country;
-        $this->client = ($client ? $client : new Client());
+        $this->client = $client ?: new Client();
         $this->url = $url;
     }
 
@@ -94,7 +93,7 @@ class ParcelShop
                 }
             }
             throw new ParcelNotFoundException($parcelnumber);
-        } catch (ServiceNotFoundException $e) {
+        } catch (ClientException $e) {
             throw new ParcelNotFoundException($parcelnumber);
         }
     }
@@ -121,7 +120,7 @@ class ParcelShop
 
         try {
             return $this->getParcels($url, $params);
-        } catch (ServiceNotFoundException $e) {
+        } catch (ClientException $e) {
             throw new NoParcelsFoundInZipcodeException($zipcode);
         }
     }
@@ -149,7 +148,7 @@ class ParcelShop
 
         try {
             return $this->getParcels($url, $params);
-        } catch (ServiceNotFoundException $e) {
+        } catch (ClientException $e) {
             throw new MalformedAddressException($street, $zipcode);
         }
     }
@@ -160,18 +159,15 @@ class ParcelShop
      * @param string $url
      * @param array $params
      * @return Entity\Parcelshop|Entity\Parcelshop[]
-     * @throws ServiceNotFoundException
+     * @throws ClientException
      */
     private function getParcels($url, array $params)
     {
         $url = $this->generateUrl($url, $params);
         try {
             $request = $this->client->get($url);
-            return $this->generateParcels($request->json());
+            return $this->generateParcels(\GuzzleHttp\json_decode($request->getBody(), true));
         } catch (ClientException $e) {
-            if ($e->getResponse()->getStatusCode() === 400) {
-                throw new ServiceNotFoundException();
-            }
             throw $e;
         }
     }
@@ -205,31 +201,35 @@ class ParcelShop
     private function generateParcels(array $data)
     {
         $shops = [];
-        foreach ($data['servicePointInformationResponse']['servicePoints'] as $shop) {
-            $parcel = new Entity\Parcelshop();
-            $parcel
-                ->setNumber((int)$shop['servicePointId'])
-                ->setCompanyname($shop['name'])
-                ->setStreetname(sprintf(
-                    '%s %s',
-                    $shop['deliveryAddress']['streetName'],
-                    $shop['deliveryAddress']['streetNumber']
-                ))
-                ->setZipcode($shop['deliveryAddress']['postalCode'])
-                ->setCity($shop['deliveryAddress']['city'])
-                ->setCountrycode($shop['deliveryAddress']['countryCode'])
-                ->setCountrycodeIso($shop['deliveryAddress']['countryCode'])
-            ;
+        if (isset($data['servicePointInformationResponse'], $data['servicePointInformationResponse']['servicePoints'])) {
+            foreach ($data['servicePointInformationResponse']['servicePoints'] as $shop) {
+                $parcel = new Entity\Parcelshop();
+                $parcel
+                    ->setNumber((int)$shop['servicePointId'])
+                    ->setCompanyname($shop['name'])
+                    ->setStreetname(
+                        sprintf(
+                            '%s %s',
+                            $shop['deliveryAddress']['streetName'],
+                            $shop['deliveryAddress']['streetNumber']
+                        )
+                    )
+                    ->setZipcode($shop['deliveryAddress']['postalCode'])
+                    ->setCity($shop['deliveryAddress']['city'])
+                    ->setCountrycode($shop['deliveryAddress']['countryCode'])
+                    ->setCountrycodeIso($shop['deliveryAddress']['countryCode'])
+                ;
 
-            if (isset($shop['coordinate']['northing']) && isset($shop['coordinate']['easting'])) {
-                $parcel->setCoordinate($shop['coordinate']['northing'], $shop['coordinate']['easting']);
+                if (isset($shop['coordinate'], $shop['coordinate']['northing'], $shop['coordinate']['easting'])) {
+                    $parcel->setCoordinate($shop['coordinate']['northing'], $shop['coordinate']['easting']);
+                }
+
+                if (isset($shop['openingHours'])) {
+                    $parcel->setOpenings($this->parseOpenings($shop['openingHours']));
+                }
+
+                $shops[] = $parcel;
             }
-
-            if (isset($shop['openingHours'])) {
-                $parcel->setOpenings($this->parseOpenings($shop['openingHours']));
-            }
-
-            $shops[] = $parcel;
         }
 
         return $shops;
