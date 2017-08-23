@@ -1,17 +1,18 @@
 <?php
 namespace Lsv\PdDkTest;
 
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
+use Lsv\PdDk\Entity\Parcelshop;
 
 class ParcelShopZipcodeTest extends AbstractParcelShopTest
 {
 
     public function testGetParcelsFromZipcodeZipcodeNotFound()
     {
-        $this->setExpectedException($this->getExceptionNamespace('NoParcelsFoundInZipcodeException'), '', 220);
-        $mock = new Mock([
+        $this->expectException($this->getExceptionNamespace('NoParcelsFoundInZipcodeException'));
+        $this->expectExceptionCode(220);
+        $mock = new MockHandler([
             new Response(400)
         ]);
         $this->getParser($mock)->getParcelshopsFromZipcode(1000);
@@ -19,28 +20,28 @@ class ParcelShopZipcodeTest extends AbstractParcelShopTest
 
     public function testGetParcelsFromZipcode()
     {
-        $mock = new Mock([
-            new Response(200, [], Stream::factory($this->getReturnJson('parcelszipcode.json')))
+        $mock = new MockHandler([
+            new Response(200, [], $this->getReturnJson('parcelszipcode.json'))
         ]);
 
         $parcels = $this->getParser($mock)->getParcelshopsFromZipcode(1000);
         $this->assertCount(5, $parcels);
         foreach ($parcels as $parcel) {
-            $this->assertInstanceOf('Lsv\PdDk\Entity\Parcelshop', $parcel);
+            $this->assertInstanceOf(Parcelshop::class, $parcel);
         }
 
     }
 
     public function testSetLimit()
     {
-        $mock = new Mock([
-            new Response(200, [], Stream::factory($this->getReturnJson('parcelszipcode_limit1.json')))
+        $mock = new MockHandler([
+            new Response(200, [], $this->getReturnJson('parcelszipcode_limit1.json'))
         ]);
 
         $parcels = $this->getParser($mock)->getParcelshopsFromZipcode(1000, 1);
         $this->assertCount(1, $parcels);
         foreach ($parcels as $parcel) {
-            $this->assertInstanceOf('Lsv\PdDk\Entity\Parcelshop', $parcel);
+            $this->assertInstanceOf(Parcelshop::class, $parcel);
         }
     }
 }
