@@ -1,4 +1,4 @@
-Postdanmark parcelshop (for Denmark)
+PostNord parcelshop (tested with Denmark and Sweden)
 ============================
 
 [![Build Status](https://travis-ci.org/lsv/postdanmark-parcelshop.svg?branch=master)](https://travis-ci.org/lsv/postdanmark-parcelshop) [![Coverage Status](https://coveralls.io/repos/lsv/postdanmark-parcelshop/badge.svg)](https://coveralls.io/r/lsv/postdanmark-parcelshop)

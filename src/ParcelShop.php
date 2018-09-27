@@ -65,9 +65,14 @@ class ParcelShop
     public function __construct($consumerId, $country = 'DK', Client $client = null, $url = self::WEBSERVICE)
     {
         $this->consumerId = $consumerId;
-        $this->country = $country;
+        $this->setCountry($country);
         $this->client = $client ?: new Client();
         $this->url = $url;
+    }
+
+    public function setCountry($country = 'DK')
+    {
+        $this->country = $country;
     }
 
     /**
@@ -201,7 +206,7 @@ class ParcelShop
     private function generateParcels(array $data)
     {
         $shops = [];
-        if (isset($data['servicePointInformationResponse'], $data['servicePointInformationResponse']['servicePoints'])) {
+        if (isset($data['servicePointInformationResponse']['servicePoints'])) {
             foreach ($data['servicePointInformationResponse']['servicePoints'] as $shop) {
                 $parcel = new Entity\Parcelshop();
                 $parcel
