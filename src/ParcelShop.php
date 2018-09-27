@@ -208,24 +208,23 @@ class ParcelShop
         $shops = [];
         if (isset($data['servicePointInformationResponse']['servicePoints'])) {
             foreach ($data['servicePointInformationResponse']['servicePoints'] as $shop) {
+                $streetName = $shop['deliveryAddress']['streetName'];
+                if (isset($shop['deliveryAddress']['streetNumber'])) {
+                    $streetName .= ' ' . $shop['deliveryAddress']['streetNumber'];
+                }
+
                 $parcel = new Entity\Parcelshop();
                 $parcel
                     ->setNumber((int)$shop['servicePointId'])
                     ->setCompanyname($shop['name'])
-                    ->setStreetname(
-                        sprintf(
-                            '%s %s',
-                            $shop['deliveryAddress']['streetName'],
-                            $shop['deliveryAddress']['streetNumber']
-                        )
-                    )
+                    ->setStreetname($streetName)
                     ->setZipcode($shop['deliveryAddress']['postalCode'])
                     ->setCity($shop['deliveryAddress']['city'])
                     ->setCountrycode($shop['deliveryAddress']['countryCode'])
                     ->setCountrycodeIso($shop['deliveryAddress']['countryCode'])
                 ;
 
-                if (isset($shop['coordinate'], $shop['coordinate']['northing'], $shop['coordinate']['easting'])) {
+                if (isset($shop['coordinate']['northing'], $shop['coordinate']['easting'])) {
                     $parcel->setCoordinate($shop['coordinate']['northing'], $shop['coordinate']['easting']);
                 }
 

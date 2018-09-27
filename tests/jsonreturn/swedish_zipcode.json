@@ -1,0 +1,310 @@
+{
+  "servicePointInformationResponse": {
+    "customerSupportPhoneNo": "+46771333310",
+    "servicePoints": [
+      {
+        "servicePointId": "170585",
+        "name": "Quick Stop (St1)",
+        "routeDistance": 1024,
+        "visitingAddress": {
+          "streetName": "Munkh\u00e4ttegatan",
+          "postalCode": "21559",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "deliveryAddress": {
+          "streetName": "Munkh\u00e4ttegatan",
+          "postalCode": "21559",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "coordinate": {
+          "srId": "EPSG:4326",
+          "northing": 55.5686398,
+          "easting": 13.0115708
+        },
+        "openingHours": [
+          {
+            "from1": "0800",
+            "to1": "1830",
+            "day": "MO"
+          },
+          {
+            "from1": "0800",
+            "to1": "1830",
+            "day": "TU"
+          },
+          {
+            "from1": "0800",
+            "to1": "1830",
+            "day": "WE"
+          },
+          {
+            "from1": "0800",
+            "to1": "1830",
+            "day": "TH"
+          },
+          {
+            "from1": "0800",
+            "to1": "1830",
+            "day": "FR"
+          },
+          {
+            "from1": "0900",
+            "to1": "1830",
+            "day": "SA"
+          },
+          {
+            "from1": "1000",
+            "to1": "1830",
+            "day": "SU"
+          }
+        ]
+      },
+      {
+        "servicePointId": "174580",
+        "name": "ICA N\u00e4ra Lindeborg",
+        "routeDistance": 1482,
+        "visitingAddress": {
+          "streetName": "Orkestergatan",
+          "streetNumber": "1",
+          "postalCode": "21585",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "deliveryAddress": {
+          "streetName": "Orkestergatan",
+          "streetNumber": "1",
+          "postalCode": "21585",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "coordinate": {
+          "srId": "EPSG:4326",
+          "northing": 55.5623326,
+          "easting": 12.9903934
+        },
+        "openingHours": [
+          {
+            "from1": "0800",
+            "to1": "2200",
+            "day": "MO"
+          },
+          {
+            "from1": "0800",
+            "to1": "2200",
+            "day": "TU"
+          },
+          {
+            "from1": "0800",
+            "to1": "2200",
+            "day": "WE"
+          },
+          {
+            "from1": "0800",
+            "to1": "2200",
+            "day": "TH"
+          },
+          {
+            "from1": "0800",
+            "to1": "2200",
+            "day": "FR"
+          },
+          {
+            "from1": "0800",
+            "to1": "2200",
+            "day": "SA"
+          },
+          {
+            "from1": "0800",
+            "to1": "2200",
+            "day": "SU"
+          }
+        ]
+      },
+      {
+        "servicePointId": "174578",
+        "name": "ICA Supermarket Malm\u00f6",
+        "routeDistance": 1543,
+        "visitingAddress": {
+          "streetName": "Hermodsdalstorget",
+          "streetNumber": "1",
+          "postalCode": "21552",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "deliveryAddress": {
+          "streetName": "Hermodsdalstorget",
+          "streetNumber": "1",
+          "postalCode": "21552",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "coordinate": {
+          "srId": "EPSG:4326",
+          "northing": 55.5667747,
+          "easting": 13.0205793
+        },
+        "openingHours": [
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "MO"
+          },
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "TU"
+          },
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "WE"
+          },
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "TH"
+          },
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "FR"
+          },
+          {
+            "from1": "0900",
+            "to1": "1700",
+            "day": "SA"
+          },
+          {
+            "from1": "1000",
+            "to1": "1530",
+            "day": "SU"
+          }
+        ]
+      },
+      {
+        "servicePointId": "174575",
+        "name": "Best Food",
+        "routeDistance": 2646,
+        "visitingAddress": {
+          "streetName": "Hyacintgatan",
+          "streetNumber": "38",
+          "postalCode": "21526",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "deliveryAddress": {
+          "streetName": "Hyacintgatan",
+          "streetNumber": "38",
+          "postalCode": "21526",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "coordinate": {
+          "srId": "EPSG:4326",
+          "northing": 55.5734137,
+          "easting": 12.9858487
+        },
+        "openingHours": [
+          {
+            "from1": "0800",
+            "to1": "2100",
+            "day": "MO"
+          },
+          {
+            "from1": "0800",
+            "to1": "2100",
+            "day": "TU"
+          },
+          {
+            "from1": "0800",
+            "to1": "2100",
+            "day": "WE"
+          },
+          {
+            "from1": "0800",
+            "to1": "2100",
+            "day": "TH"
+          },
+          {
+            "from1": "0800",
+            "to1": "2100",
+            "day": "FR"
+          },
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "SA"
+          },
+          {
+            "from1": "0900",
+            "to1": "1700",
+            "day": "SU"
+          }
+        ]
+      },
+      {
+        "servicePointId": "170575",
+        "name": "ICA Malmborgs Mobilia",
+        "routeDistance": 2724,
+        "visitingAddress": {
+          "streetName": "Per Albin Hanssons v\u00e4g",
+          "streetNumber": "40",
+          "postalCode": "21432",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "deliveryAddress": {
+          "streetName": "Per Albin Hanssons v\u00e4g",
+          "streetNumber": "40",
+          "postalCode": "21432",
+          "city": "MALM\u00d6",
+          "countryCode": "SE"
+        },
+        "coordinate": {
+          "srId": "EPSG:4326",
+          "northing": 55.5811338,
+          "easting": 13.0035277
+        },
+        "openingHours": [
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "MO"
+          },
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "TU"
+          },
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "WE"
+          },
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "TH"
+          },
+          {
+            "from1": "0900",
+            "to1": "2000",
+            "day": "FR"
+          },
+          {
+            "from1": "0900",
+            "to1": "1700",
+            "day": "SA"
+          },
+          {
+            "from1": "1100",
+            "to1": "1700",
+            "day": "SU"
+          }
+        ]
+      }
+    ]
+  }
+}

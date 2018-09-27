@@ -43,4 +43,22 @@ class ParcelShopZipcodeTest extends AbstractParcelShopTest
             $this->assertInstanceOf(Parcelshop::class, $parcel);
         }
     }
+
+    public function testSwedishParcels()
+    {
+        $mock = new MockHandler([
+            new Response(200, [], $this->getReturnJson('swedish_zipcode.json'))
+        ]);
+
+        $parcels = $this->getParser($mock)->getParcelshopsFromZipcode(21573);
+        $this->assertCount(5, $parcels);
+        foreach ($parcels as $num => $parcel) {
+            $this->assertInstanceOf(Parcelshop::class, $parcel);
+            if ($num === 0) {
+                $this->assertSame('Munkhättegatan', $parcel->getStreetname());
+                $this->assertSame('21559', $parcel->getZipcode());
+                $this->assertSame('MALMÖ', $parcel->getCity());
+            }
+        }
+    }
 }
