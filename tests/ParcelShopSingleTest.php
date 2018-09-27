@@ -42,11 +42,13 @@ class ParcelShopSingleTest extends AbstractParcelShopTest
         $this->assertCount(7, $parcel->getOpenings());
 
         foreach ($parcel->getOpenings() as $opening) {
-            $this->assertTrue(in_array($opening->getDay(), ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], true));
+            $this->assertContains(
+                $opening->getDay(),
+                ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            );
             $this->assertEquals('08:00', $opening->getOpenFrom());
             $this->assertEquals('22:00', $opening->getOpenTo());
         }
-
     }
 
     public function testFindOneParcelParcelsFoundButNotCorrect()

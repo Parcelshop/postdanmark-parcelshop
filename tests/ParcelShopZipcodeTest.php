@@ -29,7 +29,6 @@ class ParcelShopZipcodeTest extends AbstractParcelShopTest
         foreach ($parcels as $parcel) {
             $this->assertInstanceOf(Parcelshop::class, $parcel);
         }
-
     }
 
     public function testSetLimit()
