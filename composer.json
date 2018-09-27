@@ -27,7 +27,7 @@
     "pdepend/pdepend": "^2.0",
     "phing/phing": "^2.0",
     "phpunit/phpunit": "^5.0",
-    "friendsofphp/php-cs-fixer": "^2.5"
+    "friendsofphp/php-cs-fixer": "^2.0|^2.5"
   },
   "autoload-dev": {
     "psr-4": {

@@ -3,3 +3,4 @@
 /composer.phar
 /phpunit.xml
 /phpdoc.xml
+composer.lock
