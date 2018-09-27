@@ -87,7 +87,7 @@ class ParcelShop
     {
         $url = 'findNearestByAddress.json';
         $params = [
-            'postalCode' => $zipcode
+            'postalCode' => $this->parseZipcode($zipcode),
         ];
 
         try {
@@ -116,7 +116,7 @@ class ParcelShop
     {
         $url = 'findNearestByAddress.json';
         $params = [
-            'postalCode' => $zipcode
+            'postalCode' => $this->parseZipcode($zipcode),
         ];
 
         if (is_int($limit)) {
@@ -126,7 +126,7 @@ class ParcelShop
         try {
             return $this->getParcels($url, $params);
         } catch (ClientException $e) {
-            throw new NoParcelsFoundInZipcodeException($zipcode);
+            throw new NoParcelsFoundInZipcodeException($this->parseZipcode($zipcode));
         }
     }
 
@@ -144,7 +144,7 @@ class ParcelShop
         $url = 'findNearestByAddress.json';
         $params = [
             'streetName' => $street,
-            'postalCode' => $zipcode,
+            'postalCode' => $this->parseZipcode($zipcode),
         ];
 
         if (is_int($limit)) {
@@ -154,8 +154,18 @@ class ParcelShop
         try {
             return $this->getParcels($url, $params);
         } catch (ClientException $e) {
-            throw new MalformedAddressException($street, $zipcode);
+            throw new MalformedAddressException($street, $this->parseZipcode($zipcode));
         }
+    }
+
+    /**
+     * @param string $zipcode
+     *
+     * @return string
+     */
+    private function parseZipcode($zipcode)
+    {
+        return preg_replace('/\D/', '', $zipcode);
     }
 
     /**
