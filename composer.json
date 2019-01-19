@@ -10,7 +10,9 @@
     }
   ],
   "require": {
-    "php": "^5.6|^7.0",
+    "php": "^5.6|^7.1",
+    "ext-json": "*",
+
     "guzzlehttp/guzzle": "^6.0",
     "doctrine/collections": "~1.0"
   },

@@ -4,7 +4,7 @@
  */
 namespace Lsv\PdDk;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
 use Lsv\PdDk\Entity;
 use Lsv\PdDk\Exceptions\MalformedAddressException;
@@ -12,19 +12,18 @@ use Lsv\PdDk\Exceptions\NoParcelsFoundInZipcodeException;
 use Lsv\PdDk\Exceptions\ParcelNotFoundException;
 
 /**
- * Parcelshop
+ * Client
  *
  * @author Martin Aarhof <martin.aarhof@gmail.com>
  */
-class ParcelShop
+class Client
 {
-
     /**
      * Webservice url
      *
      * @var string
      */
-    const WEBSERVICE = 'https://api2.postnord.com/rest/businesslocation/v1/servicepoint';
+    const WEBSERVICE = 'api2.postnord.com/rest/businesslocation/v1/servicepoint';
 
     /**
      * HTTP URL
@@ -48,55 +47,69 @@ class ParcelShop
     private $country;
 
     /**
-     * Your consumer Id
+     * Your api key
      *
      * @var string
      */
-    private $consumerId;
+    private $apiKey;
+
+    /**
+     * @var bool
+     */
+    private $useSandbox = false;
 
     /**
      * Construct parcel
      *
-     * @param string $consumerId
+     * @param string $apiKey
      * @param string $country
-     * @param Client $client
+     * @param HttpClient $client
      * @param string $url
      */
-    public function __construct($consumerId, $country = 'DK', Client $client = null, $url = self::WEBSERVICE)
+    public function __construct($apiKey, $country = 'DK', HttpClient $client = null, $url = self::WEBSERVICE)
     {
-        $this->consumerId = $consumerId;
+        $this->apiKey = $apiKey;
         $this->setCountry($country);
-        $this->client = $client ?: new Client();
+        $this->client = $client ?: new HttpClient();
         $this->url = $url;
     }
 
+    /**
+     * @param string $country
+     */
     public function setCountry($country = 'DK')
     {
         $this->country = $country;
     }
 
     /**
-     * Get parcel from ID and zipcode
+     * @param boolean $useSandbox
+     */
+    public function setUseSandbox(boolean $useSandbox)
+    {
+        $this->useSandbox = $useSandbox;
+    }
+
+    /**
+     * Get parcelshop from ID and zipcode
      *
      * @param string $zipcode
-     * @param int $parcelnumber
+     * @param int    $parcelnumber
+     *
      * @return Entity\Parcelshop
      * @throws Exceptions\ParcelNotFoundException
      */
     public function getParcelshop($zipcode, $parcelnumber)
     {
-        $url = 'findNearestByAddress.json';
-        $params = [
-            'postalCode' => $this->parseZipcode($zipcode),
-        ];
-
         try {
-            $parcels = $this->getParcels($url, $params);
+            $parcels = $this->getParcelshopsFromZipcode($zipcode);
             foreach ($parcels as $parcel) {
                 if ($parcel->getNumber() === (int)$parcelnumber) {
                     return $parcel;
                 }
             }
+            throw new ParcelNotFoundException($parcelnumber);
+        } catch (NoParcelsFoundInZipcodeException $npfe) {
             throw new ParcelNotFoundException($parcelnumber);
         } catch (ClientException $e) {
             throw new ParcelNotFoundException($parcelnumber);
@@ -108,9 +121,9 @@ class ParcelShop
      *
      * @param string $zipcode
      * @param null|int $limit
+     *
      * @return Entity\Parcelshop[]
      * @throws Exceptions\NoParcelsFoundInZipcodeException
-     * @throws \Exception
      */
     public function getParcelshopsFromZipcode($zipcode, $limit = null)
     {
@@ -136,6 +149,7 @@ class ParcelShop
      * @param string $street
      * @param string $zipcode
      * @param null|int $limit
+     *
      * @return Entity\Parcelshop[]
      * @throws Exceptions\MalformedAddressException
      */
@@ -173,7 +187,8 @@ class ParcelShop
      *
      * @param string $url
      * @param array $params
-     * @return Entity\Parcelshop|Entity\Parcelshop[]
+     *
+     * @return Entity\Parcelshop[]
      * @throws ClientException
      */
     private function getParcels($url, array $params)
@@ -192,16 +207,17 @@ class ParcelShop
      *
      * @param string $url
      * @param array $params
+     *
      * @return string
      */
     private function generateUrl($url, array $params)
     {
-        $params['apikey'] = $this->consumerId;
+        $params['apikey'] = $this->apiKey;
         $params['countryCode'] = $this->country;
         $query = http_build_query($params);
         return sprintf(
             '%s/%s?%s',
-            $this->url,
+            'https://' . ($this->useSandbox ? 'at' : '') . $this->url,
             $url,
             $query
         );
@@ -211,6 +227,7 @@ class ParcelShop
      * Parse parcels from json data
      *
      * @param array $data
+     *
      * @return Entity\Parcelshop[]
      */
     private function generateParcels(array $data)
