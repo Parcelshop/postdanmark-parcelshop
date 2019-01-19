@@ -11,9 +11,9 @@ Get parcelshops from either
 
 ### Connecting
 
-You will need a CONSUMER_ID to get access to the API
+You will need an ApiKey to get access to the API
 
-[You can get the CONSUMER_ID here](http://www.postdanmark.dk/da/Logistik/netbutikker/vaelg-selv-udleveringssted/Sider/Implementer-vaelg-selv.aspx#tab2)
+[You can get the ApiKey here](https://developer.postnord.com/)
 
 ### Get single parcelshop by Id
 
@@ -21,9 +21,9 @@ You will need a CONSUMER_ID to get access to the API
 <?php
 require 'vendor/autoload.php';
 
-use Lsv\PdDk\ParcelShop;
+use Lsv\PdDk\Client;
 
-$p = new ParcelShop( CONSUMER_ID );
+$p = new Client( API_KEY );
 $shop = $p->getParcelshop( ZIPCODE , ID );
 // Yes zipcode is unfortunately mandatory
 ````
@@ -38,9 +38,9 @@ Returns ````$shop```` is a ````Entity\Parcelshop```` object
 <?php
 require 'vendor/autoload.php';
 
-use Lsv\PdDk\ParcelShop;
+use Lsv\PdDk\Client;
 
-$p = new ParcelShop( CONSUMER_ID );
+$p = new Client( API_KEY );
 $shops = $p->getParcelshopsFromZipcode( ZIPCODE );
 ````
 
@@ -54,9 +54,9 @@ Returns ````$shops```` is a array of ````Entity\Parcelshop````
 <?php
 require 'vendor/autoload.php';
 
-use Lsv\PdDk\ParcelShop;
+use Lsv\PdDk\Client;
 
-$p = new ParcelShop( CONSUMER_ID );
+$p = new Client( API_KEY );
 $shops = $p->getParcelshopsNearAddress( STREET , ZIPCODE, 20 );
 ````
 
@@ -80,16 +80,16 @@ Now create our client
 <?php
 require 'vendor/autoload.php';
 
-use Lsv\PdDk\ParcelShop;
+use Lsv\PdDk\Client;
 use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
 
 $retry = new RetrySubscriber([
     'filter' => RetrySubscriber::createStatusFilter()
 ]);
 
-$client = new GuzzleHttp\Client();
-$client->getEmitter()->attach($retry);
+$httpClient = new GuzzleHttp\Client();
+$httpClient->getEmitter()->attach($retry);
 
-$p = new ParcelShop($client);
+$p = new Client($httpClient);
 $shops = $p->getParcelshopsNearAddress( STREET , ZIPCODE, 20 );
 ````
