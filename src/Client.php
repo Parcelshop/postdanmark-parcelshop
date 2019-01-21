@@ -85,7 +85,7 @@ class Client
     /**
      * @param boolean $useSandbox
      */
-    public function setUseSandbox(boolean $useSandbox)
+    public function setUseSandbox($useSandbox)
     {
         $this->useSandbox = $useSandbox;
     }
