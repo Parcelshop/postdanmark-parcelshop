@@ -11,6 +11,8 @@
   ],
   "require": {
     "php": "^5.6|^7.0",
+    "ext-json": "*",
+
     "guzzlehttp/guzzle": "^6.0",
     "doctrine/collections": "~1.0"
   },

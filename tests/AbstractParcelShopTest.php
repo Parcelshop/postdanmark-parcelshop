@@ -1,21 +1,21 @@
 <?php
 namespace Lsv\PdDkTest;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use Lsv\PdDk\ParcelShop;
+use Lsv\PdDk\Client;
 
 abstract class AbstractParcelShopTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
      * @param MockHandler $mock
-     * @return ParcelShop
+     * @return Client
      */
     protected function getParser(MockHandler $mock = null)
     {
-        return new ParcelShop('', '', $this->getClient($mock));
+        return new Client('', '', $this->getClient($mock));
     }
 
     protected function getReturnJson($xmlfile)
@@ -25,10 +25,10 @@ abstract class AbstractParcelShopTest extends \PHPUnit_Framework_TestCase
 
     protected function getClient(MockHandler $mock = null)
     {
-        $client = new Client();
+        $client = new HttpClient();
         if ($mock) {
             $handler = HandlerStack::create($mock);
-            $client = new Client(['handler' => $handler]);
+            $client = new HttpClient(['handler' => $handler]);
         }
 
         return $client;
