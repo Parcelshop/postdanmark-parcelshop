@@ -1,0 +1,80 @@
+{
+  "servicePointInformationResponse": {
+    "customerSupports": [
+      {
+        "customerSupportPhoneNo": "+4570111230",
+        "country": "DK"
+      }
+    ],
+    "servicePoints": [
+      {
+        "name": "Posthus Ok Plus",
+        "servicePointId": "7758",
+        "visitingAddress": {
+          "countryCode": "DK",
+          "city": "Thisted",
+          "streetName": "Skyumvej",
+          "streetNumber": "1",
+          "postalCode": "7700"
+        },
+        "deliveryAddress": {
+          "countryCode": "DK",
+          "city": "Thisted",
+          "streetName": "Skyumvej",
+          "streetNumber": "1",
+          "postalCode": "7700"
+        },
+        "openingHours": [
+          {
+            "day": "MONDAY",
+            "from1": "06:00",
+            "to1": "21:00"
+          },
+          {
+            "day": "TUESDAY",
+            "from1": "06:00",
+            "to1": "21:00"
+          },
+          {
+            "day": "WEDNESDAY",
+            "from1": "06:00",
+            "to1": "21:00"
+          },
+          {
+            "day": "THURSDAY",
+            "from1": "06:00",
+            "to1": "21:00"
+          },
+          {
+            "day": "FRIDAY",
+            "from1": "06:00",
+            "to1": "21:00"
+          },
+          {
+            "day": "SATURDAY",
+            "from1": "07:00",
+            "to1": "21:00"
+          },
+          {
+            "day": "SUNDAY",
+            "from1": "07:00",
+            "to1": "21:00"
+          }
+        ],
+        "eligibleParcelOutlet": true,
+        "notificationArea": {
+          "postalCodes": [
+            "7700"
+          ]
+        },
+        "coordinates": [
+          {
+            "northing": 56.882791,
+            "easting": 8.62671,
+            "srId": "EPSG:4326"
+          }
+        ]
+      }
+    ]
+  }
+}

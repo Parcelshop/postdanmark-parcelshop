@@ -2,6 +2,7 @@
 /**
  * This file is part of the Lsv\GlsDk
  */
+
 namespace Lsv\PdDk;
 
 use GuzzleHttp\Client as HttpClient;
@@ -91,10 +92,36 @@ class Client
     }
 
     /**
+     * Get parcel with only the parcel number
+     *
+     * @param $parcelnumber
+     *
+     * @return Entity\Parcelshop
+     * @throws ParcelNotFoundException
+     */
+    public function getParcelshopByNumber($parcelnumber)
+    {
+        $url = 'findByServicePointId.json';
+        $params = [
+            'servicePointId' => $parcelnumber,
+        ];
+
+        try {
+            $shops = $this->getParcels($url, $params);
+            if (count($shops) === 1) {
+                return $shops[0];
+            }
+        } catch (ClientException $e) {
+        }
+
+        throw new ParcelNotFoundException($parcelnumber);
+    }
+
+    /**
      * Get parcelshop from ID and zipcode
      *
      * @param string $zipcode
-     * @param int    $parcelnumber
+     * @param int $parcelnumber
      *
      * @return Entity\Parcelshop
      * @throws Exceptions\ParcelNotFoundException
@@ -196,6 +223,7 @@ class Client
         $url = $this->generateUrl($url, $params);
         try {
             $request = $this->client->get($url);
+
             return $this->generateParcels(\GuzzleHttp\json_decode($request->getBody(), true));
         } catch (ClientException $e) {
             throw $e;
@@ -215,9 +243,10 @@ class Client
         $params['apikey'] = $this->apiKey;
         $params['countryCode'] = $this->country;
         $query = http_build_query($params);
+
         return sprintf(
             '%s/%s?%s',
-            'https://' . ($this->useSandbox ? 'at' : '') . $this->url,
+            'https://'.($this->useSandbox ? 'at' : '').$this->url,
             $url,
             $query
         );
@@ -237,7 +266,7 @@ class Client
             foreach ($data['servicePointInformationResponse']['servicePoints'] as $shop) {
                 $streetName = $shop['deliveryAddress']['streetName'];
                 if (isset($shop['deliveryAddress']['streetNumber'])) {
-                    $streetName .= ' ' . $shop['deliveryAddress']['streetNumber'];
+                    $streetName .= ' '.$shop['deliveryAddress']['streetNumber'];
                 }
 
                 $parcel = new Entity\Parcelshop();
@@ -248,11 +277,13 @@ class Client
                     ->setZipcode($shop['deliveryAddress']['postalCode'])
                     ->setCity($shop['deliveryAddress']['city'])
                     ->setCountrycode($shop['deliveryAddress']['countryCode'])
-                    ->setCountrycodeIso($shop['deliveryAddress']['countryCode'])
-                ;
+                    ->setCountrycodeIso($shop['deliveryAddress']['countryCode']);
 
                 if (isset($shop['coordinate']['northing'], $shop['coordinate']['easting'])) {
-                    $parcel->setCoordinate($shop['coordinate']['northing'], $shop['coordinate']['easting']);
+                    $parcel->setCoordinate(
+                        str_replace(',', '.', $shop['coordinate']['northing']),
+                        str_replace(',', '.', $shop['coordinate']['easting']))
+                    ;
                 }
 
                 if (isset($shop['openingHours'])) {
@@ -270,6 +301,7 @@ class Client
      * Parse openings from json data
      *
      * @param array $data
+     *
      * @return Entity\Opening[]
      */
     private function parseOpenings(array $data)
@@ -283,12 +315,15 @@ class Client
                 ->setOpenTo($this->parseTime($d['to1']));
             $openings[] = $open;
         }
+
         return $openings;
     }
 
     /**
      * Convert time to time format
+     *
      * @param string $time
+     *
      * @return string
      */
     private function parseTime($time)
@@ -300,6 +335,7 @@ class Client
             $time{2},
             $time{3}
         );
+
         return $time;
     }
 
@@ -307,6 +343,7 @@ class Client
      * Parse opening day string
      *
      * @param string $daystring
+     *
      * @return string
      */
     private function parseOpeningDay($daystring)
@@ -327,6 +364,7 @@ class Client
             case 'SU':
                 return 'Sunday';
         }
+
         return '';
     }
 }

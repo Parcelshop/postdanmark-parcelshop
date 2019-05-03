@@ -4,6 +4,7 @@ namespace Lsv\PdDkTest;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Lsv\PdDk\Entity\Parcelshop;
+use Lsv\PdDk\Exceptions\ParcelNotFoundException;
 
 class ParcelShopSingleTest extends AbstractParcelShopTest
 {
@@ -62,4 +63,26 @@ class ParcelShopSingleTest extends AbstractParcelShopTest
 
         $this->getParser($mock)->getParcelshop(1000, 999);
     }
+
+    public function testFindOneParcelWithParcelNumber()
+    {
+        $mock = new MockHandler([
+            new Response(200, [], $this->getReturnJson('parcelshop.json'))
+        ]);
+        $shop = $this->getParser($mock)->getParcelshopByNumber(7758);
+        $this->assertSame('7700', $shop->getZipcode());
+    }
+
+    public function testFindOneParcelWithParcelNumberNotFound()
+    {
+        $this->expectException(ParcelNotFoundException::class);
+        $this->expectExceptionMessage('Parcelshop "555445594" not found');
+
+        $mock = new MockHandler([
+            new Response(200, [], $this->getReturnJson('parcelshop_notfound.json'))
+        ]);
+        $this->getParser($mock)->getParcelshopByNumber(555445594);
+    }
+
+
 }

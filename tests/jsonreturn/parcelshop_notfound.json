@@ -1,0 +1,15 @@
+{
+  "servicePointInformationResponse": {
+    "compositeFault": {
+      "faults": [
+        {
+          "faultCode": "noServicePointFound",
+          "explanationText": "No service point found: 234234234324",
+          "paramValues": []
+        }
+      ]
+    },
+    "customerSupports": [],
+    "servicePoints": []
+  }
+}
